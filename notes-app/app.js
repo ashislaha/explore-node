@@ -44,17 +44,17 @@ yargs
             demandOption: true,
             type: 'string'
         },
-        content: {
+        body: {
             describe: "give a note content",
-            alias: 'c',
+            alias: 'body',
             demandOption: true,
             type: 'string'
         }
     },
     handler: function(argv) {
         const title = argv.title;
-        const content = argv.content;
-        console.log("adding a new note: ", title, content);
+        const body = argv.body;
+        notes.addNote(title, body);
     }
 });
 
