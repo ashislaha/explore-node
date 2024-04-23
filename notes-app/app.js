@@ -73,7 +73,7 @@ yargs
     },
     handler: function(argv) {
         const title = argv.title;
-        console.log("remove note: ", title);
+        notes.removeNote(title);
     }
 });
 
