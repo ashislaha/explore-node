@@ -102,7 +102,8 @@ yargs
     command: 'list',
     describe: "list down all saved notes",
     handler: function(argv) {
-        console.log("List down all notes");
+       const listAllNotes = notes.getNotes();
+       console.log(listAllNotes);
     }
 });
 
