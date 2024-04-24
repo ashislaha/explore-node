@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-const getNotes = function () {
+const getNotes = () => {
     return "your notes..."
 }
 
-const addNote = function (title, body) {
+const addNote = (title, body) => {
     const notes = loadNotes();
-    const duplicateNotes = notes.filter( function(note) {
+    const duplicateNotes = notes.filter( (note) => {
         return note.title === title
     });
 
@@ -22,9 +22,9 @@ const addNote = function (title, body) {
     }
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
     const notes = loadNotes();
-    const remainingNotes = notes.filter( function(note) {
+    const remainingNotes = notes.filter( (note) => {
         return (note.title != title);
     });
 
