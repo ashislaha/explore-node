@@ -17,6 +17,8 @@ const tasks = {
         completed: false
     }],
 
+    // for method inside an object, don't use arrow function
+    // rest of the places you can use arrow function.
     getTasksToDo: function getTasksToDo() {
         const todoItems = this.tasks.filter((task) => {
             return !task.completed
