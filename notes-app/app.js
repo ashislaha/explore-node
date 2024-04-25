@@ -92,7 +92,7 @@ yargs
     },
     handler: function(argv) {
         const title = argv.title;
-        console.log("Read note: ", title);
+        notes.readNote(title);
     }
 });
 

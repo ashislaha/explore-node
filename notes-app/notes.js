@@ -1,10 +1,29 @@
 const fs = require('fs');
 
+// get existing notes
 const getNotes = () => {
     const notes = loadNotes();
     return notes;
 }
 
+const readNote = (title) => {
+    const notes = loadNotes();
+
+    const notesPresented = notes.filter(function(note) {
+        return note.title === title;
+    });
+
+    if (notesPresented.length > 0) {
+        console.log('Reading note:', title);
+        notesPresented.forEach((note) => {
+            console.log(note.body);
+        });
+    } else {
+        console.log('note is not present to read')
+    }
+}
+
+// Add a new note
 const addNote = (title, body) => {
     const notes = loadNotes();
     const duplicateNotes = notes.filter( (note) => {
@@ -23,6 +42,7 @@ const addNote = (title, body) => {
     }
 }
 
+// remove a note
 const removeNote = (title) => {
     const notes = loadNotes();
     const remainingNotes = notes.filter( (note) => {
@@ -37,6 +57,8 @@ const removeNote = (title) => {
     }
 }
 
+// Utility methods
+// save note
 const saveNotes = function (notes) {
     const jsonString = JSON.stringify(notes);
     fs.writeFileSync("notes.json", jsonString);
@@ -57,7 +79,8 @@ const loadNotes = function () {
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    readNote: readNote
 };
 
 //export default getNotes;
