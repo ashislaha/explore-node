@@ -1,3 +1,7 @@
+// We can use ‘debugger’ to debug a node.js app and inspect any variable value.
+// $node inspect app.js ….
+// And open “chrome browser” and goto address chrome://inspect
+
 const validator = require('validator');
 //const chalk = require('chalk');
 const yargs = require('yargs')
