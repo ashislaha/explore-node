@@ -13,8 +13,6 @@ const readNote = (title) => {
         return note.title === title;
     });
 
-    debugger
-    
     if (notesPresented.length > 0) {
         console.log('Reading note:', title);
         notesPresented.forEach((note) => {
