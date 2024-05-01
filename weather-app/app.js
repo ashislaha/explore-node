@@ -11,6 +11,9 @@ const getWeather = function(place) {
     request.get({url: url, json: true}, (error, response, body) => {
         if (error) {
             console.log('Unable to connect weather service!');
+        } else if (body.error) {
+            console.log('Error: ', body.error.info);
+            
         } else {
             console.log('status code', response.statusCode);
             const currentTemperature = body.current.temperature;
@@ -21,7 +24,7 @@ const getWeather = function(place) {
     });
 }
 
-getWeather("seattle");
+// getWeather("seattle");
 
 // geo-coding
 // address (mapbox.com) --> lat, lng --> use api to get weather info
@@ -39,6 +42,9 @@ const getForwardGeocoding = (place) => {
     request.get({url: url, json: true}, (error, response, body) => {
         if (error) {
             console.log('Unable to connect to Forward geo coding service!');
+        } else if (body.features.length === 0) {
+            console.log('Invalid location');
+
         } else {
             console.log('status code', response.statusCode);
             const feature = body.features[0];
@@ -48,4 +54,4 @@ const getForwardGeocoding = (place) => {
     });
 }
 
-//getForwardGeocoding("Los angeles");
+getForwardGeocoding("los angeles");
