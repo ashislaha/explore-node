@@ -5,12 +5,6 @@ const request = require('request');
 const weatherStackEndPoint = "http://api.weatherstack.com/current";
 const weatherStackAccessToken = "3f2b4de4adf7e149d5839bfd4ef7eccc";
 
-// https://account.mapbox.com/
-const mapBoxEndPoint = "https://api.mapbox.com/search/geocode/v6/forward"
-const mapBoxAccessToken = "pk.eyJ1IjoiYXNoaXNsYWhhIiwiYSI6ImNsdmx5azdpdzJsZzYydm4xd25ieWJ0ZzYifQ.G4WPdCr07mRucWgNXewhLg"
-const language = "en"
-const limit = 1
-
 const getWeather = function(place) {
     const url = weatherStackEndPoint + "?access_key=" + weatherStackAccessToken + "&query=" + encodeURIComponent(place);
     console.log(url);
@@ -27,8 +21,16 @@ const getWeather = function(place) {
     });
 }
 
+getWeather("seattle");
+
 // geo-coding
 // address (mapbox.com) --> lat, lng --> use api to get weather info
+
+// https://account.mapbox.com/
+const mapBoxEndPoint = "https://api.mapbox.com/search/geocode/v6/forward"
+const mapBoxAccessToken = "pk.eyJ1IjoiYXNoaXNsYWhhIiwiYSI6ImNsdmx5azdpdzJsZzYydm4xd25ieWJ0ZzYifQ.G4WPdCr07mRucWgNXewhLg"
+const language = "en"
+const limit = 1
 
 const getForwardGeocoding = (place) => {
     const url = mapBoxEndPoint + "?q=" + encodeURIComponent(place) + "&access_token=" + mapBoxAccessToken + "&limit=" + `${limit}`
@@ -47,4 +49,3 @@ const getForwardGeocoding = (place) => {
 }
 
 //getForwardGeocoding("Los angeles");
-getWeather("seattle");
