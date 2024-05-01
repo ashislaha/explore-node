@@ -2,8 +2,8 @@
 const request = require('request');
 
 // https://weatherstack.com/documentation
-const weatherApiKey = "3f2b4de4adf7e149d5839bfd4ef7eccc";
-const weatherRequestURL = "http://api.weatherstack.com/current?access_key=3f2b4de4adf7e149d5839bfd4ef7eccc&query=Seattle"
+const weatherStackEndPoint = "http://api.weatherstack.com/current";
+const weatherStackAccessToken = "3f2b4de4adf7e149d5839bfd4ef7eccc";
 
 // https://account.mapbox.com/
 const mapBoxEndPoint = "https://api.mapbox.com/search/geocode/v6/forward"
@@ -11,10 +11,12 @@ const mapBoxAccessToken = "pk.eyJ1IjoiYXNoaXNsYWhhIiwiYSI6ImNsdmx5azdpdzJsZzYydm
 const language = "en"
 const limit = 1
 
-const getWeather = function() {
-    request.get({url: weatherRequestURL, json: true}, (error, response, body) => {
+const getWeather = function(place) {
+    const url = weatherStackEndPoint + "?access_key=" + weatherStackAccessToken + "&query=" + encodeURIComponent(place);
+    console.log(url);
+    request.get({url: url, json: true}, (error, response, body) => {
         if (error) {
-            console.log('error', error);
+            console.log('Unable to connect weather service!');
         } else {
             console.log('status code', response.statusCode);
             const currentTemperature = body.current.temperature;
@@ -34,7 +36,7 @@ const getForwardGeocoding = (place) => {
 
     request.get({url: url, json: true}, (error, response, body) => {
         if (error) {
-            console.log('error', error);
+            console.log('Unable to connect to Forward geo coding service!');
         } else {
             console.log('status code', response.statusCode);
             const feature = body.features[0];
@@ -44,4 +46,5 @@ const getForwardGeocoding = (place) => {
     });
 }
 
-getForwardGeocoding("Los angeles")
+//getForwardGeocoding("Los angeles");
+getWeather("seattle");
