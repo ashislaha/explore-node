@@ -35,23 +35,30 @@ const mapBoxAccessToken = "pk.eyJ1IjoiYXNoaXNsYWhhIiwiYSI6ImNsdmx5azdpdzJsZzYydm
 const language = "en"
 const limit = 1
 
-const getForwardGeocoding = (place) => {
+const getForwardGeocoding = (place, callback) => {
     const url = mapBoxEndPoint + "?q=" + encodeURIComponent(place) + "&access_token=" + mapBoxAccessToken + "&limit=" + `${limit}`
     console.log(url);
 
     request.get({url: url, json: true}, (error, response, body) => {
         if (error) {
-            console.log('Unable to connect to Forward geo coding service!');
+            callback('Unable to connect to Forward geo coding service!', undefined);
         } else if (body.features.length === 0) {
-            console.log('Invalid location');
+            callback('Invalid location', undefined);
 
         } else {
             console.log('status code', response.statusCode);
             const feature = body.features[0];
             const coordinates = feature.properties.coordinates;
-            console.log(coordinates);
+           
+            callback(undefined, coordinates);
         }
     });
 }
 
-getForwardGeocoding("los angeles");
+getForwardGeocoding("seattle", (error, data) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(data);
+    }
+});
