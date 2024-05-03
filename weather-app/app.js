@@ -2,16 +2,16 @@
 const geoCode = require('./utils/geocode');
 const weather = require('./utils/weather');
 
-geoCode.getForwardGeocoding("seattle", (error, data) => {
+geoCode.getForwardGeocoding("seattle", (error, geocodeData) => {
     if (error) {
         console.log(error);
     } else {
-        console.log(data);
-        weather.getWeather(data.fullAddress, (error, data) => {
+        console.log(geocodeData);
+        weather.getWeather(geocodeData.fullAddress, (error, forecastData) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log(data);
+                console.log(forecastData);
             }
         })
     }
