@@ -7,13 +7,12 @@ geoCode.getForwardGeocoding("seattle", (error, data) => {
         console.log(error);
     } else {
         console.log(data);
+        weather.getWeather(data.fullAddress, (error, data) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(data);
+            }
+        })
     }
 });
-
-weather.getWeather("seattle", (error, data) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log(data);
-    }
-})
