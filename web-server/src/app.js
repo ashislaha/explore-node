@@ -6,7 +6,7 @@ const weather = require(weatherPath)
 const hbs = require('hbs');
 const express = require('express');
 const app = express()
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3007;
 
 // Define paths for express config
 const publicPath = path.join(__dirname, '../public')
@@ -62,12 +62,14 @@ app.get('/weather', (req, res) => {
             error: 'Address must be there in query params to fetch'
         })
     } else {
-        weather.getWeather(address, (error, weatherData = {}) => {
-            if (error) {
-                console.log(error)
-                res.send(error);
+        weather.getWeather(address, (errorValue, weatherData = {}) => {
+            if (errorValue) {
+                res.send({ error: errorValue });
             } else {
-                res.send(weatherData);
+                res.send({
+                    weatherData: weatherData,
+                    address: address
+                });
             }
         })
     }
