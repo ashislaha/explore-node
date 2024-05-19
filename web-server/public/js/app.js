@@ -1,18 +1,43 @@
 console.log('client side javascript file loaded');
 
-fetch('http://localhost:3007/weather?address=sammamish')
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-        if (data.error) {
-            console.log(data.error);
-        } else {
-            console.log(data);
-        }
-    })
+function fetchWeather(location, callback) {
+    fetch('http://localhost:3007/weather?address=' + location)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            if (data.error) {
+                callback(data.error, undefined)
+            } else {
+                callback(undefined, data)
+            }
+        })
+        .catch(error => {
+            console.log('There is a problem in fetch request:', error)
+        })
+}
 
 const weatherForm = document.querySelector('form')
-weatherForm.addEventListener('submit', () => {
-    console.log('submit tapped')
+const searchInput = document.querySelector('input')
+const weatherInfo = document.querySelector('#weather_message')
+const weatherError = document.querySelector('#weather_error')
+
+weatherForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    weatherInfo.textContent = ''
+    weatherError.textContent = ''
+
+    const location = searchInput.value
+    if (location) {
+        fetchWeather(location, (error, data) => {
+            if (error) {
+                weatherError.textContent = error
+            } else {
+                const message = "Weather in " + data.address + " - " + data.weatherData.descriptionString
+                weatherInfo.textContent = message
+            }
+        })
+    } else {
+        console.log('provide a valid location to search')
+    }
 })
