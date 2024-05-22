@@ -1,7 +1,7 @@
 console.log('client side javascript file loaded');
 
 function fetchWeather(location, callback) {
-    fetch('http://localhost:3007/weather?address=' + location)
+    fetch('/weather?address=' + location)
         .then(response => {
             return response.json()
         })
